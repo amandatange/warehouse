@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import config from "../config/config.json";
 
 const fetchAPI = `${config.base_url}/products?api_key=${config.api_key}`
@@ -14,7 +14,7 @@ function StockList() {
     }, []);
 
     // console.log(products)
-    const list = products.map((product, index) => <Text key={index}>{ product.name } - { product.stock }</Text>);
+    const list = products.map((product, index) => <Text style={styles.list} key={index}>{ product.name } - { product.stock }</Text>);
 
     return (
         <View>
@@ -25,9 +25,26 @@ function StockList() {
 
 export default function Stock() {
     return (
-        <View>
-        <Text style={{color: '#333', fontSize: 24}}>Lagerförteckning</Text>
-        <StockList/>
+        <View style={styles.background}>
+            <Text style={styles.text}>In stock</Text>
+            <StockList/>
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    text: {
+        color: 'hsl(115, 44%, 30%)',
+        fontSize: 30,
+        marginBottom: 15
+    },
+    list: {
+        color: "hsl(285, 25%, 40%)",
+        fontSize: 22,
+        lineHeight: 30,
+        marginBottom: 10
+    },
+    background: {
+        backgroundColor: 'hsla(0, 0%, 100%, .6)',
+    }
+});
