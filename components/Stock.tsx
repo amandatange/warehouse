@@ -1,20 +1,22 @@
-import { useState, useEffect } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import config from "../config/config.json";
+import { useEffect } from 'react';
+import { Text, View } from 'react-native';
+import { Base, Typography } from '../styles';
+import productModel from '../models/products'
 
-const fetchAPI = `${config.base_url}/products?api_key=${config.api_key}`
 
-function StockList() {
-    const [products, setProducts] = useState([]);
+function StockList({products, setProducts}) {
 
-    useEffect(() => {
-        fetch(fetchAPI)
-            .then(response => response.json())
-            .then(result => setProducts(result.data));
-    }, []);
+    useEffect(async () => {
+        setProducts(await productModel.getProducts());
+    }, [])
 
-    // console.log(products)
-    const list = products.map((product, index) => <Text style={styles.list} key={index}>{ product.name } - { product.stock }</Text>);
+    const list = products.map((product, index) => {
+        return (
+            <Text style={Typography.header3} key={index}>
+                { product.name } - { product.stock }
+            </Text>
+        )
+    })
 
     return (
         <View>
@@ -23,28 +25,11 @@ function StockList() {
     );
 }
 
-export default function Stock() {
+export default function Stock({products, setProducts}) {
     return (
-        <View style={styles.background}>
-            <Text style={styles.text}>In stock</Text>
-            <StockList/>
+        <View style={Base.whiteBackground}>
+            <Text style={Typography.header2}>In stock</Text>
+            <StockList products={products} setProducts={setProducts}/>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    text: {
-        color: 'hsl(115, 44%, 30%)',
-        fontSize: 30,
-        marginBottom: 15
-    },
-    list: {
-        color: "hsl(285, 25%, 40%)",
-        fontSize: 22,
-        lineHeight: 30,
-        marginBottom: 10
-    },
-    background: {
-        backgroundColor: 'hsla(0, 0%, 100%, .6)',
-    }
-});
