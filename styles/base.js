@@ -19,8 +19,9 @@ export const container = {
 }
 
 export const routeIcons = {
-	"Lager": "flower",
-	"Plock": "shopping-basket",
+	"Stock": "flower",
+	"Pack": "shopping-basket",
+    "Deliveries": "plus"
 };
 
 export const button = {

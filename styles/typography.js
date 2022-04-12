@@ -39,3 +39,8 @@ export const button = {
     textTransform: "uppercase"
 }
 
+export const label = {
+    fontWeight: 700,
+    marginTop: 32,
+    // display: block,
+}
