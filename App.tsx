@@ -8,6 +8,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Home from "./components/Home";
 import Pick from "./components/Pick";
+import Deliveries from "./components/Deliveries";
 
 const Tab = createBottomTabNavigator();
 
@@ -26,11 +27,14 @@ export default function App() {
 						tabBarInactiveTintColor: 'gray',
 					})}
 					>
-						<Tab.Screen name="Lager">
+						<Tab.Screen name="Stock">
 							{() => <Home products={products} setProducts={setProducts}/>}
 						</Tab.Screen>
-						<Tab.Screen name="Plock">
+						<Tab.Screen name="Pack">
 							{() => <Pick setProducts={setProducts}/>}
+						</Tab.Screen>
+						<Tab.Screen name="Deliveries">
+							{() => <Deliveries/>}
 						</Tab.Screen>
 					</Tab.Navigator>
 				</NavigationContainer>
