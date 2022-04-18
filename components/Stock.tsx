@@ -4,7 +4,7 @@ import { Base, Typography } from '../styles';
 import productModel from '../models/products'
 
 
-function StockList({products, setProducts}) {
+const StockList = ({products, setProducts}) => {
 
     useEffect(async () => {
         setProducts(await productModel.getProducts());
@@ -25,7 +25,7 @@ function StockList({products, setProducts}) {
     );
 }
 
-export default function Stock({products, setProducts}) {
+const Stock = ({products, setProducts}) => {
     return (
         <View style={Base.whiteBackground}>
             <Text style={Typography.header2}>In stock</Text>
@@ -33,3 +33,5 @@ export default function Stock({products, setProducts}) {
         </View>
     );
 }
+
+export default Stock;

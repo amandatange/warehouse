@@ -5,7 +5,7 @@ import PickList from './PickList';
 
 const Stack = createNativeStackNavigator();
 
-export default function Pick(props) {
+const Pick = (props) => {
 
     return (
         <Stack.Navigator initialRouteName="List">
@@ -16,3 +16,5 @@ export default function Pick(props) {
         </Stack.Navigator>
     );
 }
+
+export default Pick;

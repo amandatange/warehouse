@@ -40,7 +40,7 @@ export const button = {
 }
 
 export const label = {
-    fontWeight: 700,
+    fontWeight: "bold",
     marginTop: 32,
     // display: block,
 }

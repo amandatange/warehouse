@@ -9,10 +9,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from "./components/Home";
 import Pick from "./components/Pick";
 import Deliveries from "./components/Deliveries";
+import DeliveryForm from './components/DeliveryForm';
 
 const Tab = createBottomTabNavigator();
 
-export default function App() {
+const App = () => {
     const [products, setProducts] = useState([]);
 
 	return (
@@ -36,9 +37,15 @@ export default function App() {
 						<Tab.Screen name="Deliveries">
 							{() => <Deliveries/>}
 						</Tab.Screen>
+						{/* <Tab.Screen name="Form">
+							{() => <DeliveryForm/>}
+						</Tab.Screen> */}
 					</Tab.Navigator>
 				</NavigationContainer>
 				<StatusBar style="auto" />
 		</SafeAreaView>
 		);
 };
+
+
+export default App

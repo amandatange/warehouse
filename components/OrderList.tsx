@@ -4,7 +4,7 @@ import { Base, Typography } from '../styles';
 import config from "./../config/config.json";
 import orderModel from '../models/orders'
 
-export default function OrderList({ route, navigation }) {
+const OrderList = ({ route, navigation }) => {
     const { reload } = route.params || false;
     const [allOrders, setAllOrders] = useState([]);
     
@@ -47,3 +47,5 @@ export default function OrderList({ route, navigation }) {
         </View>
     );
 }
+
+export default OrderList;

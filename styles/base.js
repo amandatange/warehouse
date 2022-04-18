@@ -33,3 +33,13 @@ export const button = {
     marginVertical: 10,
     marginHorizontal: 5,
 }
+
+
+export const deliveryItem = {
+    flex: 1,
+    backgroundColor: 'hsl(0, 0%, 85%)',
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    marginVertical: 10,
+    marginHorizontal: 5,
+}

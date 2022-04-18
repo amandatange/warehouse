@@ -1,40 +1,44 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import { useState, useEffect } from "react";
+import uuid from 'uuid-random';
 
 import { Base, Typography } from '../styles';
 
-import deliveriesModel from '../models/deliveries'
+import deliveriesModel from '../models/deliveries';
 
-export default function DeliveriesList({ route, navigation }) {
+const DeliveriesList = ({ route, navigation }) => {
     const { reload } = route.params || false;
-    const [deliveriesList, setDeliveriesList] = useState([])
+    const [deliveriesList, setDeliveriesList] = useState([]);
     
     if (reload) {
         reloadDeliveries();
     }
 
+    const listOfDeliveries = () => {
+        return (
+            <View>
+                {deliveriesList.map((item) => {
+                    return <Text key={uuid()} style={Base.deliveryItem}>{item.amount} {item.product_name} {item.delivery_date} {item.comment}</Text>
+                })}
+            </View>
+        )
+    }
+
     async function reloadDeliveries() {
         setDeliveriesList(await deliveriesModel.getDeliveries());
+        // await console.log(deliveriesList, "från deliveriesList");
     }
 
     useEffect(() => {
-        reloadDeliveries()
-        // console.log(deliveriesList)
+        reloadDeliveries();
     }, []);
 
-    // const listOfDeliveries = deliveriesList.map(delivery => {
-
-    //     return <Text style={Typography.normal}
-    //             key={delivery}
-    //             >
-    //                 {delivery}
-    //         </Text>;
-    // });
-
     return (
-        <View style={Base.base}>
-            <Text style={Typography.header2}>Inleveranser</Text>
-            {deliveriesList}
+        <ScrollView style={Base.base}>
+            <Text style={Typography.header2}>Deliveries</Text>
+            {deliveriesList.length > 0
+                ? <Text>{listOfDeliveries()}</Text>
+                : <Text style={Typography.normal}>No previous deliveries!</Text>}
             <TouchableOpacity style={Base.button}
                 // title="Skapa ny inleverans"
                 onPress={() => {
@@ -45,8 +49,8 @@ export default function DeliveriesList({ route, navigation }) {
                     Create new delivery
                 </Text>
             </TouchableOpacity>
-        </View>
+        </ScrollView>
     );
 }
 
-    
+export default DeliveriesList 

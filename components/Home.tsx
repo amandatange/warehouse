@@ -4,7 +4,7 @@ import Stock from './Stock';
 
 import plant from '../assets/plant.jpg';
 
-export default function Home({products, setProducts}) {
+const Home = ({products, setProducts}) => {
 	
     return (
         <ImageBackground source={plant} resizeMode="cover" style={Base.image}>
@@ -15,3 +15,5 @@ export default function Home({products, setProducts}) {
 		</ImageBackground>
     );
 };
+
+export default Home;

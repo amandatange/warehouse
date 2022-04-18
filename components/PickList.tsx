@@ -4,7 +4,7 @@ import { Base, Typography } from '../styles';
 import orderModel from "../models/orders";
 import productModel from "../models/products";
 
-export default function PickList({ route, navigation, setProducts }) {
+const PickList = ({ route, navigation, setProducts }) => {
     const { order } = route.params;
     const [productsList, setProductsList] = useState([])
     
@@ -55,3 +55,4 @@ export default function PickList({ route, navigation, setProducts }) {
         </View>
     )
 };
+export default PickList;
