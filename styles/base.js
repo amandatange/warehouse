@@ -10,6 +10,7 @@ export const image = {
 }
 
 export const whiteBackground = {
+    flex: 1,
     backgroundColor: 'hsla(0, 0%, 100%, .8)',
     padding: 10,
 }
@@ -32,14 +33,32 @@ export const button = {
     paddingHorizontal: 12,
     marginVertical: 10,
     marginHorizontal: 5,
-}
+};
 
 
 export const deliveryItem = {
-    flex: 1,
-    backgroundColor: 'hsl(0, 0%, 85%)',
-    paddingVertical: 10,
-    paddingHorizontal: 12,
+    elevation: 8,
+    marginHorizontal: 'auto',
+    flexShrink: 1,
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    borderRadius: 8,
+    paddingVertical: 15,
+    paddingHorizontal: 5,
     marginVertical: 10,
-    marginHorizontal: 5,
-}
+    flex: 1,
+    justifyContent: 'center',
+    width: '100%'
+};
+
+
+
+// heading: {
+//     fontSize: 18,
+//     fontWeight: '600',
+//     marginBottom: 13,
+//   },
+
+export const Card = {
+    
+};

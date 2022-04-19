@@ -25,7 +25,7 @@ const ProductDropDown = (props) => {
         return <Picker.Item key={index} label={prod.name} value={prod.id}
         />;
     });
-    // console.log(itemsList)
+    
     return (
         <Picker
             selectedValue={props.delivery?.product_id}
@@ -33,6 +33,7 @@ const ProductDropDown = (props) => {
                 props.setDelivery({ ...props.delivery, product_id: itemValue});
                 props.setCurrentProduct(productsHash[itemValue]);
         }}>
+            <Picker.Item key='unselectable' label='Choose a plant' value={0} />
             {itemsList}
         </Picker>
     )
@@ -56,8 +57,7 @@ const DateDropDown = (props) => {
             {Platform.OS === 'android' && (
                 <TouchableOpacity style={Base.button} onPress={showDatePicker}>
                     <Text style={Typography.button}>
-                        {/* Show date picker */}
-                        {dropDownDate.toLocaleDateString('se-SV')}
+                        Show date picker
                     </Text>
                 </TouchableOpacity>
             )}
@@ -85,20 +85,28 @@ const DeliveryForm = ({ navigation, setProducts }) => {
     const [delivery, setDelivery] = useState<Partial<Delivery>>({});
     const [currentProduct, setCurrentProduct] = useState<Partial<Product>>({});
 
+    const [notValid, setNotValid] = useState(false);
 
     const addDelivery = async () => {
-        await deliveriesModel.addDelivery(delivery);
 
-        const updatedProduct = {
-            ...currentProduct,
-            stock: (currentProduct.stock || 0) + (delivery.amount || 0)
-        };
-        // console.log("updated product", updatedProduct)
-        await productModel.updateProduct(updatedProduct);
+        if (delivery.amount) {
+            setNotValid(false)
+            await deliveriesModel.addDelivery(delivery);
 
-        // setProducts(await productModel.getProducts());
-        // // console.log(delivery, "addDelivery i DeliveryForm");
-        navigation.navigate("List", { reload: true })
+            const updatedProduct = {
+                ...currentProduct,
+                stock: (currentProduct.stock || 0) + (delivery.amount || 0)
+            };
+            // console.log("updated product", updatedProduct)
+            await productModel.updateProduct(updatedProduct);
+
+            // setProducts(await productModel.getProducts());
+            // // console.log(delivery, "addDelivery i DeliveryForm");
+            navigation.navigate("List", { reload: true })
+        } else {
+            setNotValid(true);
+        }
+        
     }
 
     return (
@@ -149,6 +157,8 @@ const DeliveryForm = ({ navigation, setProducts }) => {
                 value={delivery?.comment}
             />
             
+            {notValid && <Text>Please fill in the amount</Text>}
+
             <TouchableOpacity style={Base.button} onPress={addDelivery}>
                 <Text style={Typography.button}>
                     Create delivery

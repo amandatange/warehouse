@@ -44,3 +44,8 @@ export const label = {
     marginTop: 32,
     // display: block,
 }
+
+export const deliveryListItem = {
+    color: 'hsl(120, 0%, 30%)',
+    fontSize: 25,
+}

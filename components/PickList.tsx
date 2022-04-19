@@ -36,7 +36,7 @@ const PickList = ({ route, navigation, setProducts }) => {
     });
 
     return (
-        <View>
+        <View style={Base.base}>
             <Text style={Typography.header4}>{order.name}</Text>
             <Text style={Typography.normal}>{order.address}</Text>
             <Text style={Typography.normal}>{order.zip} {order.city}</Text>

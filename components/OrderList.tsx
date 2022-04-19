@@ -41,7 +41,7 @@ const OrderList = ({ route, navigation }) => {
         });
 
     return (
-        <View>
+        <View style={Base.base}>
             <Text style={Typography.header1}>Orders ready to be packed</Text>
             {listOfOrders}
         </View>

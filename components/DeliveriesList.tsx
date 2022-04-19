@@ -18,7 +18,14 @@ const DeliveriesList = ({ route, navigation }) => {
         return (
             <View>
                 {deliveriesList.map((item) => {
-                    return <Text key={uuid.v4()} style={Base.deliveryItem}>{item.amount} {item.product_name} {item.delivery_date} {item.comment}</Text>
+                    return (
+                        <View key={uuid.v4()} style={Base.deliveryItem}>
+                            <Text style={Typography.deliveryListItem}>
+                                {item.amount} {item.product_name} {'\n'}
+                                <Text style={Typography.normal}>{item.delivery_date} {item.comment ? item.comment : "No comment"}</Text>
+                            </Text>
+                        </View>
+                    )
                 })}
             </View>
         )
