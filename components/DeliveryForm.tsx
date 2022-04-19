@@ -93,11 +93,11 @@ const DeliveryForm = ({ navigation, setProducts }) => {
             ...currentProduct,
             stock: (currentProduct.stock || 0) + (delivery.amount || 0)
         };
-
+        // console.log("updated product", updatedProduct)
         await productModel.updateProduct(updatedProduct);
 
-        setProducts(await productModel.getProducts());
-        // console.log(delivery, "addDelivery i DeliveryForm");
+        // setProducts(await productModel.getProducts());
+        // // console.log(delivery, "addDelivery i DeliveryForm");
         navigation.navigate("List", { reload: true })
     }
 

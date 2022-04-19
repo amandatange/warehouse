@@ -12,7 +12,7 @@ const deliveries = {
         // console.log(delivery, "from deliveries model")
         try {
             delivery.api_key = config.api_key;
-            console.log(delivery, "second log from deliveries model")
+            // console.log(delivery, "second log from deliveries model")
             await fetch(`${config.base_url}/deliveries`, {
                 body: JSON.stringify(delivery),
                 headers: {
@@ -20,6 +20,8 @@ const deliveries = {
                 },
                 method: 'POST'
             });
+            // .then(res => res.json())
+            // .then(data => console.log(data, "data from post req"));
         } catch (error) {
             console.log("Could not add delivery:", delivery)
         }

@@ -8,7 +8,7 @@ const StockList = ({products, setProducts}) => {
 
     useEffect(async () => {
         setProducts(await productModel.getProducts());
-    }, [])
+    }, [products])
 
     const list = products.map((product, index) => {
         return (

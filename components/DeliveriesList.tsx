@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import { useState, useEffect } from "react";
-import uuid from 'uuid-random';
+import uuid from 'react-native-uuid';
 
 import { Base, Typography } from '../styles';
 
@@ -18,7 +18,7 @@ const DeliveriesList = ({ route, navigation }) => {
         return (
             <View>
                 {deliveriesList.map((item) => {
-                    return <Text key={uuid()} style={Base.deliveryItem}>{item.amount} {item.product_name} {item.delivery_date} {item.comment}</Text>
+                    return <Text key={uuid.v4()} style={Base.deliveryItem}>{item.amount} {item.product_name} {item.delivery_date} {item.comment}</Text>
                 })}
             </View>
         )

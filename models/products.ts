@@ -10,7 +10,6 @@ const products = {
     updateProduct: async function updateProduct(product) {
         try {
             product.api_key = config.api_key;
-
             await fetch(`${config.base_url}/products`, {
                 body: JSON.stringify(product),
                 headers: {
@@ -18,8 +17,9 @@ const products = {
                 },
                 method: 'PUT'
             });
+            // .then(data => console.log("data from update product action: ", data));
         } catch (error) {
-            console.log("Could not update product:", product)
+            console.log("Could not update product:", product, error)
         }
     },
 };
