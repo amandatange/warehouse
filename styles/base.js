@@ -17,6 +17,8 @@ export const whiteBackground = {
 
 export const container = {
     flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center'
 }
 
 export const routeIcons = {
@@ -43,22 +45,10 @@ export const deliveryItem = {
     flexDirection: 'row',
     backgroundColor: 'white',
     borderRadius: 8,
-    paddingVertical: 15,
-    paddingHorizontal: 5,
     marginVertical: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
     flex: 1,
-    justifyContent: 'center',
-    width: '100%'
-};
-
-
-
-// heading: {
-//     fontSize: 18,
-//     fontWeight: '600',
-//     marginBottom: 13,
-//   },
-
-export const Card = {
-    
+    width: 300,
+    maxWidth: '40%',
 };

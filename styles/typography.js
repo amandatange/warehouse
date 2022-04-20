@@ -29,7 +29,7 @@ export const header4 = {
 export const normal = {
     color: 'hsl(120, 0%, 30%)',
     fontSize: 16,
-    marginBottom: 10,
+    marginTop: 10,
 };
 
 export const button = {
@@ -42,10 +42,10 @@ export const button = {
 export const label = {
     fontWeight: "bold",
     marginTop: 32,
-    // display: block,
 }
 
 export const deliveryListItem = {
     color: 'hsl(120, 0%, 30%)',
-    fontSize: 25,
+    fontSize: 22,
+    marginBottom: 5,
 }

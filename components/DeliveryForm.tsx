@@ -12,7 +12,6 @@ import Delivery from "../interfaces/delivery";
 import Product  from "../interfaces/product";
 
 const ProductDropDown = (props) => {
-    // console.log(props.delivery)
     const [products, setProducts] = useState<Product[]>([]);
     let productsHash: any = {};
 
@@ -37,9 +36,6 @@ const ProductDropDown = (props) => {
             {itemsList}
         </Picker>
     )
-    // return (
-    //     <Text>picker</Text>
-    // )
 
 }
 
@@ -97,11 +93,7 @@ const DeliveryForm = ({ navigation, setProducts }) => {
                 ...currentProduct,
                 stock: (currentProduct.stock || 0) + (delivery.amount || 0)
             };
-            // console.log("updated product", updatedProduct)
             await productModel.updateProduct(updatedProduct);
-
-            // setProducts(await productModel.getProducts());
-            // // console.log(delivery, "addDelivery i DeliveryForm");
             navigation.navigate("List", { reload: true })
         } else {
             setNotValid(true);
@@ -151,8 +143,6 @@ const DeliveryForm = ({ navigation, setProducts }) => {
                 style={Forms.input}
                 onChangeText={(content: string) => {
                     setDelivery({ ...delivery, comment: content})
-                    // console.log("i onchangeText")
-                    // console.log(content)
                 }}
                 value={delivery?.comment}
             />

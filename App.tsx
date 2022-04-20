@@ -37,9 +37,6 @@ const App = () => {
 						<Tab.Screen name="Deliveries">
 							{() => <Deliveries/>}
 						</Tab.Screen>
-						{/* <Tab.Screen name="Form">
-							{() => <DeliveryForm/>}
-						</Tab.Screen> */}
 					</Tab.Navigator>
 				</NavigationContainer>
 				<StatusBar style="auto" />

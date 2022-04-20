@@ -16,13 +16,14 @@ const DeliveriesList = ({ route, navigation }) => {
 
     const listOfDeliveries = () => {
         return (
-            <View>
+            <View style={Base.container}>
                 {deliveriesList.map((item) => {
                     return (
                         <View key={uuid.v4()} style={Base.deliveryItem}>
                             <Text style={Typography.deliveryListItem}>
-                                {item.amount} {item.product_name} {'\n'}
-                                <Text style={Typography.normal}>{item.delivery_date} {item.comment ? item.comment : "No comment"}</Text>
+                                {item.amount}: {item.product_name} {'\n'}
+                                <Text style={Typography.normal}>Delivery date: {item.delivery_date}{'\n'}
+                                Comment: {item.comment ? item.comment : "No comment"}</Text>
                             </Text>
                         </View>
                     )
@@ -33,7 +34,6 @@ const DeliveriesList = ({ route, navigation }) => {
 
     async function reloadDeliveries() {
         setDeliveriesList(await deliveriesModel.getDeliveries());
-        // await console.log(deliveriesList, "från deliveriesList");
     }
 
     useEffect(() => {
@@ -47,7 +47,6 @@ const DeliveriesList = ({ route, navigation }) => {
                 ? <Text>{listOfDeliveries()}</Text>
                 : <Text style={Typography.normal}>No previous deliveries!</Text>}
             <TouchableOpacity style={Base.button}
-                // title="Skapa ny inleverans"
                 onPress={() => {
                     navigation.navigate('Form');
                 }}
