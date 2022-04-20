@@ -36,9 +36,7 @@ const ProductDropDown = (props) => {
             {itemsList}
         </Picker>
     )
-
 }
-
 
 const DateDropDown = (props) => {
     const [dropDownDate, setDropDownDate] = useState<Date>(new Date());
