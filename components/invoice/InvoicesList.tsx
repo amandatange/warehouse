@@ -46,22 +46,6 @@ const InvoicesList = ({ route, navigation, setIsLoggedIn }) => {
             )
     });
 
-    // const animals = [
-    //     { name: "elephant", legs: 4, color: "grey"},
-    //     { name: "kangaroo", legs: 2, color: "brown"},
-    //     { name: "spider", legs: 8, color: "black"},
-    // ];
-
-    // const animalTable = animals.map((animal, index) => {
-    //     return (
-    //         <DataTable.Row key={index}>
-    //             <DataTable.Cell>{animal.name}</DataTable.Cell>
-    //             <DataTable.Cell numeric>{animal.legs}</DataTable.Cell>
-    //             <DataTable.Cell>{animal.color}</DataTable.Cell>
-    //         </DataTable.Row>
-    //     );
-    // });
-
     return (
         <ScrollView style={Base.base}>
             <Text style={Typography.header2}>Invoices</Text>

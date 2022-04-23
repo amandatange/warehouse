@@ -10,17 +10,24 @@ import ordersModel from "../../models/orders";
 import Invoice from "../../interfaces/invoice";
 import Order from "../../interfaces/order";
 
+const zeroPad = (number:number):string => {
+    if (number < 10) {
+        return "0" + number
+    }
+    return "" + number
+}
 
-const formatDate = (date: Date) => {
+const formatDate = (date: Date):string => {
     
 
 
-    return `${date.getFullYear()}-${date.getMonth()}`;
+    return `${date.getFullYear()}-${zeroPad(date.getMonth()+1)}-${zeroPad(date.getDate())}`;
 }
 
-const OrderDropDown = (props) => {
+const OrderDropDown = ({ invoice, setInvoice }) => {
+
     const [orders, setOrders] = useState<Order[]>([]);
-    // let productsHash: any = {};
+    let productsHash: any = {};
 
     useEffect(async () => {
         setOrders(await ordersModel.getOrders());
@@ -33,10 +40,9 @@ const OrderDropDown = (props) => {
     
     return (
         <Picker
-            selectedValue={props.invoice?.order_id}
+            selectedValue={invoice?.order_id}
             onValueChange={(itemValue) => {
-                props.setInvoice({ ...props.invoice, order_id: itemValue});
-                props.setCurrentProduct(productsHash[itemValue]);
+                setInvoice({ ...invoice, order_id: itemValue});
         }}>
             <Picker.Item key='unselectable' label='Choose an invoice' value={0} />
             {ordersList}
@@ -44,7 +50,7 @@ const OrderDropDown = (props) => {
     )
 }
 
-const DateDropDown = (props) => {
+const DateDropDown = ({ invoice, setInvoice }) => {
     const [dropDownDate, setDropDownDate] = useState<Date>(new Date());
     const [show, setShow] = useState<Boolean>(false);
 
@@ -66,10 +72,11 @@ const DateDropDown = (props) => {
                     onChange={(event, date) => {
                         if (date !== undefined) {
                             setDropDownDate(date);
-                            props.setDelivery({
-                                ...props.invoice,
-                                creation_date: date.toLocaleDateString('se-SV')
+                            setInvoice({
+                                ...invoice,
+                                creation_date: formatDate(date)
                             });
+                            // setDelivery(date.toLocaleDateString('se-SV'))
                         }
                         setShow(false)
                     }}
@@ -86,7 +93,12 @@ const InvoicesForm = ({navigation, setProducts}) => {
     const createInvoice = async () => {
         await invoiceModel.createInvoice(invoice);
 
-        navigation.navigate("List", {reload: true});
+        navigation.navigate("InvoicesList", {reload: true});
+    }
+
+    const setDelivery = (date) => {
+        invoice.creation_date = date
+        console.log(invoice)
     }
 
     return (
@@ -100,7 +112,8 @@ const InvoicesForm = ({navigation, setProducts}) => {
             />
 
             <Text style={{ ...Typography.label }}>Due by</Text>
-            <OrderDropDown
+            <DateDropDown
+                // setDelivery={setDelivery}
                 invoice={invoice}
                 setInvoice={setInvoice}
             />

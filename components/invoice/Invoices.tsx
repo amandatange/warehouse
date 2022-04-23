@@ -11,7 +11,7 @@ const Invoices = (props) => {
             <Stack.Screen name="InvoicesList">
                 {(screenProps) => <InvoicesList {...screenProps} setIsLoggedIn={props.setIsLoggedIn} />}
             </Stack.Screen>
-            {/* <Stack.Screen name="Form" component={InvoicesForm} /> */}
+            <Stack.Screen name="Form" component={InvoicesForm} />
         </Stack.Navigator>
     )
 };
