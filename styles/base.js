@@ -23,16 +23,16 @@ export const container = {
 
 export const routeIcons = {
 	"Stock": "flower",
-	"Pack": "shopping-basket",
-    "Deliveries": "plus",
-    "Log in": "plus",
-    "Invoice": "newsletter",
+	"Pack": "box",
+    "Deliveries": "shopping-basket",
+    "Log in": "lock",
+    "Invoices": "newsletter",
 };
 
 export const button = {
     elevation: 8,
-    backgroundColor: 'hsl(115, 44%, 30%)',
-    borderRadius: 25,
+    backgroundColor: 'hsl(120, 20%, 80%)',
+    borderRadius: 3,
     paddingVertical: 10,
     paddingHorizontal: 12,
     marginVertical: 10,

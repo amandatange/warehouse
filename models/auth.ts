@@ -1,5 +1,6 @@
 // models/auth.ts
 import config from "../config/config.json";
+
 import storage from "./storage";
 
 const auth = {

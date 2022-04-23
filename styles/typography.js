@@ -33,8 +33,8 @@ export const normal = {
 };
 
 export const button = {
-    fontSize: 18,
-    color: "#fff",
+    fontSize: 16,
+    color: "hsl(0, 0%, 20%)",
     alignSelf: "center",
     textTransform: "uppercase"
 }

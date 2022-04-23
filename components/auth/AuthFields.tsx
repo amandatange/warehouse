@@ -1,9 +1,9 @@
-import { View, Text, TextInput, Button } from "react-native";
+import { View, Text, TextInput, Button, TouchableOpacity } from "react-native";
 import { Typography, Forms, Base } from "../../styles";
 
 const AuthFields = ({ auth, setAuth, submit, title, navigation }) => {
     return (
-        <View>
+        <View style={Base.base}>
             <Text>{title}</Text>
 
             <Text>Email</Text>
@@ -30,21 +30,14 @@ const AuthFields = ({ auth, setAuth, submit, title, navigation }) => {
                 autoCorrect={false}
             />
 
-            <Button
-                title={title}
-                onPress={() => {
-                    submit();
-                }}
-            />
+            <TouchableOpacity style={Base.button} onPress={submit}>
+                <Text style={Typography.button}>{title}</Text>
+            </TouchableOpacity>
 
             {title === "Log in" &&
-                <Button
-                    title="No account? Press here to register"
-                    onPress={() => {
-                        navigation.navigate("Register")
-                        }
-                    }
-                />
+                <TouchableOpacity style={Base.button} onPress={() => navigation.navigate("Register")}>
+                    <Text style={Typography.button}>Register new user</Text>
+                </TouchableOpacity>
             }
         </View>
 

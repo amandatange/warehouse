@@ -9,8 +9,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from "./components/Home";
 import Pick from "./components/Pick";
 import Deliveries from "./components/Deliveries";
-import DeliveryForm from './components/DeliveryForm';
+import Invoices from "./components/invoice/Invoices";
 import Auth from './components/auth/Auth';
+
 import authModel from './models/auth';
 
 const Tab = createBottomTabNavigator();
@@ -21,40 +22,42 @@ const App = () => {
 
 	useEffect(async () => {
 		setIsLoggedIn(await authModel.loggedIn());
-	}, [])
+	}, []);
+	
 	return (
 		<SafeAreaView style={Base.container}>
-				<NavigationContainer>
-					<Tab.Navigator screenOptions={({ route }) => ({
-						tabBarIcon: ({ focused, color, size }) => {
-						let iconName = Base.routeIcons[route.name] || 'help';
-						return <Entypo name={iconName} size={size} color={color} />;
-						},
-						tabBarActiveTintColor: 'hsl(120, 30%, 40%)',
-						tabBarInactiveTintColor: 'gray',
-					})}
-					>
-						<Tab.Screen name="Stock">
-							{() => <Home products={products} setProducts={setProducts}/>}
-						</Tab.Screen>
-						<Tab.Screen name="Pack">
-							{() => <Pick setProducts={setProducts}/>}
-						</Tab.Screen>
-						<Tab.Screen name="Deliveries">
-							{() => <Deliveries/>}
-						</Tab.Screen>
-						{isLoggedIn 
-							?   <Tab.Screen name="Invoice">
-									{() => <Pick />}
-								</Tab.Screen>
-							:   <Tab.Screen name="Log in">
-									{() => <Auth setIsLoggedIn={setIsLoggedIn}/>}
-								</Tab.Screen>
-						}
-						
-					</Tab.Navigator>
-				</NavigationContainer>
-				<StatusBar style="auto" />
+			<NavigationContainer>
+				<Tab.Navigator screenOptions={({ route }) => ({
+					tabBarIcon: ({ focused, color, size }) => {
+					let iconName = Base.routeIcons[route.name] || 'help';
+					return <Entypo name={iconName} size={size} color={color} />;
+					},
+					tabBarActiveTintColor: 'hsl(120, 30%, 40%)',
+					tabBarInactiveTintColor: 'gray',
+				})}
+				>
+					<Tab.Screen name="Stock">
+						{() => <Home products={products} setProducts={setProducts}/>}
+					</Tab.Screen>
+					<Tab.Screen name="Pack">
+						{() => <Pick setProducts={setProducts}/>}
+					</Tab.Screen>
+					<Tab.Screen name="Deliveries">
+						{() => <Deliveries/>}
+					</Tab.Screen>
+					{isLoggedIn 
+						?   <Tab.Screen name="Invoices">
+								{() => <Invoices setIsLoggedIn={setIsLoggedIn}/>}
+								{/* {() => <Pick setIsLoggedIn={setIsLoggedIn}/>} */}
+							</Tab.Screen>
+						:   <Tab.Screen name="Log in">
+								{() => <Auth setIsLoggedIn={setIsLoggedIn}/>}
+							</Tab.Screen>
+					}
+					
+				</Tab.Navigator>
+			</NavigationContainer>
+			<StatusBar style="auto" />
 		</SafeAreaView>
 		);
 };
