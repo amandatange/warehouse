@@ -44,7 +44,7 @@ const orders = {
             console.log("could not update order")
         }
     },
-    getOrder: async function getOrder(invoiceObject, order_id): Promise<Order[]> {
+    getOrder: async function getOrder(order_id): Promise<Order[]> {
         const response = await fetch(`${config.base_url}/orders/${order_id}?api_key=${config.api_key}`);
         const result = await response.json();
         return result.data;
