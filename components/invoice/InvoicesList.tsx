@@ -14,7 +14,6 @@ const InvoicesList = ({ route, navigation, setIsLoggedIn }) => {
 
     const reloadInvoices = async () => {
         setAllInvoices(await invoiceModel.getInvoices());
-        // console.log("all invoices", allInvoices)
     }
 
     if (reload) {
@@ -36,8 +35,8 @@ const InvoicesList = ({ route, navigation, setIsLoggedIn }) => {
                 <DataTable.Cell>
                     {invoice.name}
                 </DataTable.Cell>
-                <DataTable.Cell numeric>
-                    {invoice.total_price}
+                <DataTable.Cell numeric style={Typography.textAlignCenter}>
+                    £{invoice.total_price}
                 </DataTable.Cell>
                 <DataTable.Cell>
                     {invoice.due_date}
@@ -57,7 +56,6 @@ const InvoicesList = ({ route, navigation, setIsLoggedIn }) => {
                     <DataTable.Title>Due</DataTable.Title>
                 </DataTable.Header>
                 {invoicesRows}
-                {/* {animalTable} */}
             </DataTable>
 
             <TouchableOpacity style={Base.button} onPress={() => navigation.navigate("Form")}>
