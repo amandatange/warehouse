@@ -49,3 +49,7 @@ export const deliveryListItem = {
     fontSize: 22,
     marginBottom: 5,
 }
+
+export const textAlignCenter = {
+    marginRight: 30
+}
