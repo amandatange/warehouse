@@ -25,6 +25,7 @@ export const routeIcons = {
 	"Stock": "flower",
 	"Pack": "box",
     "Deliveries": "shopping-basket",
+    "Ship": "direction",
     "Log in": "lock",
     "Invoices": "newsletter",
 };

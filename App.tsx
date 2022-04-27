@@ -11,6 +11,7 @@ import Pick from "./components/Pick";
 import Deliveries from "./components/Deliveries";
 import Invoices from "./components/invoice/Invoices";
 import Auth from './components/auth/Auth';
+import Ship from './components/ship/Ship'
 
 import authModel from './models/auth';
 
@@ -45,6 +46,7 @@ const App = () => {
 					<Tab.Screen name="Deliveries">
 						{() => <Deliveries/>}
 					</Tab.Screen>
+					<Tab.Screen name="Ship" component={Ship} />
 					{isLoggedIn 
 						?   <Tab.Screen name="Invoices">
 								{() => <Invoices setIsLoggedIn={setIsLoggedIn}/>}

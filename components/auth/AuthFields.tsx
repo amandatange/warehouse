@@ -4,7 +4,7 @@ import { Typography, Forms, Base } from "../../styles";
 const AuthFields = ({ auth, setAuth, submit, title, navigation }) => {
     return (
         <View style={Base.base}>
-            <Text>{title}</Text>
+            <Text style={Typography.header2}>{title}</Text>
 
             <Text>Email</Text>
             <TextInput style={Forms.input}
