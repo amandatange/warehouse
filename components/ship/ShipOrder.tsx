@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 
@@ -12,7 +12,7 @@ const ShipOrder = ({ route }) => {
     const [marker, setMarker] = useState(null);
     const [locationMarker, setLocationMarker] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
-
+    
     useEffect(() => {
         (async () => {
             const result = await getCoordinates(`${order.address}, ${order.city}`);
@@ -41,34 +41,35 @@ const ShipOrder = ({ route }) => {
                     latitude: currentLocation.coords.latitude, longitude: currentLocation.coords.longitude
                 }}
                 title="Current location"
-                pinColor='purple'
+                pinColor='blue'
             />)
         })();
     }, [])
     
     return (
-        <View style={styles.container}>
+        <View style={Base.container}>
             <Text style={Typography.header2}>
                 Ship order
             </Text>
-            <MapView
-                style={styles.map}
-                initialRegion={{
-                    latitude: 56.1612,
-                    longitude: 15.5869,
-                    latitudeDelta: 0.1,
-                    longitudeDelta: 0.1
-            }}>
-                {marker}
-                {locationMarker}
-                {/* <Marker
-                    coordinate={{
-                        latitude: 56.17,
-                        longitude: 15.59
-                    }}
-                    title={"Shipping address"}
-                /> */}
-            </MapView>
+            <View>
+                <Text style={Typography.header4}>Name: {order.name}</Text>
+                <Text style={Typography.normal}>Address: {order.address}</Text>
+                <Text style={Typography.normal}>City and zip code: {order.city} {order.zip}</Text>            
+                <Text style={Typography.normal}>Order id: {order.id}</Text>            
+            </View>
+            <View style={styles.container}>
+                <MapView
+                    style={styles.map}
+                    initialRegion={{
+                        latitude: 56.1612,
+                        longitude: 15.5869,
+                        latitudeDelta: 0.1,
+                        longitudeDelta: 0.1
+                }}>
+                    {marker}
+                    {locationMarker}
+                </MapView>
+            </View>
             
         </View>
     )

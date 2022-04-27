@@ -1,38 +1,52 @@
+import { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity } from "react-native";
+
+import orderModel from '../../models/orders';
 
 import { Base, Typography } from "../../styles";
 
-const ShipList = ({ navigation }) => {
+const ShipList = ({ route, navigation }) => {
+    const { reload } = route.params || false;
+    const [allOrders, setAllOrders] = useState([]);
+    
+    if (reload) {
+        reloadOrders();
+    }
+
+    async function reloadOrders() {
+        setAllOrders(await orderModel.getOrders())
+    }
+
+    useEffect(() => {
+        reloadOrders()
+    }, [])
+
+    const listOfOrders = allOrders
+        .filter(order => order.status_id > 100)
+        .map((order, index) => {
+            return (
+                <TouchableOpacity
+                    key={index}
+                    onPress={() => {
+                        navigation.navigate('Order', {
+                            order: order
+                        });
+                    }}
+                    style={Base.button}
+                >
+                    <Text style={Typography.button}>
+                        {order.name}
+                    </Text>
+                </TouchableOpacity>
+            )
+        });
+
     return (
         <View style={Base.base}>
             <Text style={Typography.header2}>
                 Orders ready to be shipped
             </Text>
-            {/* Mappa alla ordrar med status > 100 */}
-            <TouchableOpacity 
-                    style={Base.button}
-                    onPress={() => {
-                        navigation.navigate('Order', {
-                            order: {
-                                "id": 6186,
-                                "name": "Ulla Ullman",
-                                "address": "Iglatjärnsvägen 1",
-                                "zip": "45678",
-                                "city": "Olofstorp",
-                                "country": "Sweden",
-                                "status": "Packad",
-                                "status_id": 200,
-                            }
-                        })
-                    }}    
-                >
-                
-                
-                
-                <Text style={Typography.button}>
-                    Fake order
-                </Text>
-            </TouchableOpacity>
+            {listOfOrders}
         </View>
     )
 
