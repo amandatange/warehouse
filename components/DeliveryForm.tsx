@@ -46,6 +46,10 @@ const DateDropDown = (props) => {
         setShow(true);
     };
 
+    useEffect(() => {
+        setShow(false);
+    }, [dropDownDate]);
+
     return (
         <View>
             {Platform.OS === 'android' && (
@@ -64,8 +68,8 @@ const DateDropDown = (props) => {
                                 ...props.delivery,
                                 delivery_date: date.toLocaleDateString('se-SV')
                             });
+                            
                         }
-                        setShow(false)
                     }}
                     value={dropDownDate}
                 />
