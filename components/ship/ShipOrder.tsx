@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 
@@ -11,12 +11,14 @@ const ShipOrder = ({ route }) => {
     const { order } = route.params;
     const [marker, setMarker] = useState(null);
     const [locationMarker, setLocationMarker] = useState(null);
+    const [initLat, setInitLat] = useState(null);
+    const [initLon, setInitLon] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
     
     useEffect(() => {
+        
         (async () => {
             const result = await getCoordinates(`${order.address}, ${order.city}`);
-            // console.log(result);
             setMarker(
                 <Marker 
                     coordinate={{latitude: parseFloat(result[0].lat), longitude: parseFloat(result[0].lon)}}
@@ -24,6 +26,8 @@ const ShipOrder = ({ route }) => {
                     pinColor='green'
                 />
             )
+            setInitLat(parseFloat(result[0].lat));
+            setInitLon(parseFloat(result[0].lon));
         })();
     }, []);
 
@@ -43,15 +47,14 @@ const ShipOrder = ({ route }) => {
                 title="Current location"
                 pinColor='blue'
             />)
+            
         })();
     }, [])
     
     return (
         <View style={Base.container}>
-            <Text style={Typography.header2}>
-                Ship order
-            </Text>
             <View>
+                <Text style={Typography.header2}>Ship order</Text>
                 <Text style={Typography.header4}>Name: {order.name}</Text>
                 <Text style={Typography.normal}>Address: {order.address}</Text>
                 <Text style={Typography.normal}>City and zip code: {order.city} {order.zip}</Text>            
@@ -61,8 +64,12 @@ const ShipOrder = ({ route }) => {
                 <MapView
                     style={styles.map}
                     initialRegion={{
-                        latitude: 56.1612,
-                        longitude: 15.5869,
+                        // latitude: 56.1612,
+                        // longitude: 15.5869,
+                        // latitudeDelta: 0.1,
+                        // longitudeDelta: 0.1
+                        latitude: initLat,
+                        longitude: initLon,
                         latitudeDelta: 0.1,
                         longitudeDelta: 0.1
                 }}>
