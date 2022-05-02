@@ -1,11 +1,29 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { View, Text, StyleSheet } from "react-native";
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 
 import getCoordinates from '../../models/nominatim';
+import distanceBetweenCoordinates from '../../models/distance';
 
 import { Base, Typography } from "../../styles";
+import { ActivityIndicator } from 'react-native-paper';
+
+// export default function distanceBetweenCoordinates(shipping, gps) {
+//     const R = 6371e3; // metres
+//     const φ1 = shipping.latitude * Math.PI/180; // φ, λ in radians
+//     const φ2 = gps.latitude * Math.PI/180;
+//     const Δφ = (gps.latitude-shipping.latitude) * Math.PI/180;
+//     const Δλ = (gps.longitude-shipping.longitude) * Math.PI/180;
+
+//     const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+//             Math.cos(φ1) * Math.cos(φ2) *
+//             Math.sin(Δλ/2) * Math.sin(Δλ/2);
+//     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+//     const d = R * c; // in metres
+//     return d;
+// };
 
 const ShipOrder = ({ route }) => {
     const { order } = route.params;
@@ -13,14 +31,21 @@ const ShipOrder = ({ route }) => {
     const [locationMarker, setLocationMarker] = useState(null);
     const [initLat, setInitLat] = useState(null);
     const [initLon, setInitLon] = useState(null);
+    const [currentGPSLocation, setCurrentGPSLocation] = useState(null);
+    const [shippingLocation, setShippingLocation] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
+    const map = useRef(null);
     
     useEffect(() => {
         
         (async () => {
             const result = await getCoordinates(`${order.address}, ${order.city}`);
+
+            setShippingLocation({latitude: parseFloat(result[0].lat), longitude: parseFloat(result[0].lon)});
+
             setMarker(
                 <Marker 
+                    identifier='marker'
                     coordinate={{latitude: parseFloat(result[0].lat), longitude: parseFloat(result[0].lon)}}
                     title={result[0].display_name}
                     pinColor='green'
@@ -40,7 +65,11 @@ const ShipOrder = ({ route }) => {
             }
 
             const currentLocation = await Location.getCurrentPositionAsync({});
+
+            setCurrentGPSLocation(currentLocation.coords);
+
             setLocationMarker(<Marker 
+                identifier='locationMarker'
                 coordinate={{
                     latitude: currentLocation.coords.latitude, longitude: currentLocation.coords.longitude
                 }}
@@ -49,7 +78,19 @@ const ShipOrder = ({ route }) => {
             />)
             
         })();
-    }, [])
+    }, []);
+
+    
+    // if (shippingLocation && currentGPSLocation) {
+    //     const distance = distanceBetweenCoordinates(shippingLocation, currentGPSLocation);
+    // }
+
+    const fitMarkers = () => {
+        if (map?.current && (marker && locationMarker)) {
+            const markers = ['locationMarker', 'marker'];
+            map.current.fitToSuppliedMarkers(markers, true);
+        }
+    };
     
     return (
         <View style={Base.container}>
@@ -61,21 +102,24 @@ const ShipOrder = ({ route }) => {
                 <Text style={Typography.normal}>Order id: {order.id}</Text>            
             </View>
             <View style={styles.container}>
-                <MapView
-                    style={styles.map}
-                    initialRegion={{
-                        // latitude: 56.1612,
-                        // longitude: 15.5869,
-                        // latitudeDelta: 0.1,
-                        // longitudeDelta: 0.1
-                        latitude: initLat,
-                        longitude: initLon,
-                        latitudeDelta: 0.1,
-                        longitudeDelta: 0.1
-                }}>
-                    {marker}
-                    {locationMarker}
-                </MapView>
+                {(initLat && initLon) && (marker && locationMarker)
+                    ?   <MapView
+                            ref={map}
+                            key={locationMarker}
+                            onMapReady={fitMarkers}
+                            onMapLoaded={fitMarkers}
+                            style={styles.map}
+                            initialRegion={{
+                                latitude: initLat,
+                                longitude: initLon,
+                                latitudeDelta: 1.1,
+                                longitudeDelta: 1.1
+                        }}>
+                            {marker}
+                            {locationMarker}
+                        </MapView>
+                    : <ActivityIndicator size={'large'} animating={true} color={'#00E'} style={{marginBottom: '50%'}}/>
+                }
             </View>
             
         </View>
