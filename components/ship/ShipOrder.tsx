@@ -4,26 +4,12 @@ import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 
 import getCoordinates from '../../models/nominatim';
-import distanceBetweenCoordinates from '../../models/distance';
+
+// Not using the distance so commented out all the imports/stateprops for it - might be useful later
+// import distanceBetweenCoordinates from '../../models/distance';
 
 import { Base, Typography } from "../../styles";
 import { ActivityIndicator } from 'react-native-paper';
-
-// export default function distanceBetweenCoordinates(shipping, gps) {
-//     const R = 6371e3; // metres
-//     const φ1 = shipping.latitude * Math.PI/180; // φ, λ in radians
-//     const φ2 = gps.latitude * Math.PI/180;
-//     const Δφ = (gps.latitude-shipping.latitude) * Math.PI/180;
-//     const Δλ = (gps.longitude-shipping.longitude) * Math.PI/180;
-
-//     const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-//             Math.cos(φ1) * Math.cos(φ2) *
-//             Math.sin(Δλ/2) * Math.sin(Δλ/2);
-//     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-
-//     const d = R * c; // in metres
-//     return d;
-// };
 
 const ShipOrder = ({ route }) => {
     const { order } = route.params;
@@ -31,8 +17,8 @@ const ShipOrder = ({ route }) => {
     const [locationMarker, setLocationMarker] = useState(null);
     const [initLat, setInitLat] = useState(null);
     const [initLon, setInitLon] = useState(null);
-    const [currentGPSLocation, setCurrentGPSLocation] = useState(null);
-    const [shippingLocation, setShippingLocation] = useState(null);
+    // const [currentGPSLocation, setCurrentGPSLocation] = useState(null);
+    // const [shippingLocation, setShippingLocation] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
     const map = useRef(null);
     
@@ -80,7 +66,7 @@ const ShipOrder = ({ route }) => {
         })();
     }, []);
 
-    
+
     // if (shippingLocation && currentGPSLocation) {
     //     const distance = distanceBetweenCoordinates(shippingLocation, currentGPSLocation);
     // }
