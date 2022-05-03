@@ -5,6 +5,7 @@ import { Entypo } from '@expo/vector-icons';
 import { Base } from './styles';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import FlashMessage from 'react-native-flash-message';
 
 import Home from "./components/Home";
 import Pick from "./components/Pick";
@@ -14,6 +15,7 @@ import Auth from './components/auth/Auth';
 import Ship from './components/ship/Ship'
 
 import authModel from './models/auth';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -60,6 +62,7 @@ const App = () => {
 				</Tab.Navigator>
 			</NavigationContainer>
 			<StatusBar style="auto" />
+			<FlashMessage position='top' />
 		</SafeAreaView>
 		);
 };

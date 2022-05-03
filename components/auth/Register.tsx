@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { showMessage } from 'react-native-flash-message';
 
 import Auth from "../../interfaces/auth";
 import authModel from "../../models/auth";
@@ -11,6 +12,12 @@ const Register = ({ navigation }) => {
         if (auth.email && auth.password) {
             const result = await authModel.register(auth.email, auth.password);
             navigation.navigate("Login");
+        } else {
+            showMessage({
+                message: "Invalid input",
+                description: "Email or password incomplete",
+                type: "warning"
+            })
         }
     }
 

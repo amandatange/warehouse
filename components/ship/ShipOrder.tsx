@@ -17,8 +17,8 @@ const ShipOrder = ({ route }) => {
     const [locationMarker, setLocationMarker] = useState(null);
     const [initLat, setInitLat] = useState(null);
     const [initLon, setInitLon] = useState(null);
-    // const [currentGPSLocation, setCurrentGPSLocation] = useState(null);
-    // const [shippingLocation, setShippingLocation] = useState(null);
+    const [currentGPSLocation, setCurrentGPSLocation] = useState(null);
+    const [shippingLocation, setShippingLocation] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
     const map = useRef(null);
     
