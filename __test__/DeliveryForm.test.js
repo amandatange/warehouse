@@ -16,7 +16,7 @@ test('testing that amount field exists', async () => {
     expect(amountField).toBeDefined();
 });
 
-test('testing that amount field exists', async () => {
+test('testing that comment field exists', async () => {
     const { getByTestId } = render(<DeliveryForm />);
 
     const commentField = await getByTestId('comment-field');
