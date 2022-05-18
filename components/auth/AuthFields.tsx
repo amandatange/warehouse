@@ -6,16 +6,17 @@ import { Typography, Forms, Base } from "../../styles";
 const AuthFields = ({ auth, setAuth, submit, title, navigation }) => {
 
     const validatePassword = (password: string) => {
-        const pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!\.-]).{4,}$/;
+        const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{4,30}$/;
         
         if (!password.match(pattern)) {
             showMessage({
                 message: "Invalid password",
-                description: "Password must contain minimum 4 characters, both uppercase and lowercase, and one special sign",
+                description: "Must contain 4-30 characters. Min 1 uppercase letter, 1 lowercase letter, 1 special character, 1 number.",
                 type: "warning"
             })
+            return false
         }
-        
+        return true
     }
 
     const validateEmail = (email: string) => {
@@ -28,8 +29,15 @@ const AuthFields = ({ auth, setAuth, submit, title, navigation }) => {
                 description: "Email must follow general email format e.g. 'email@email.com'",
                 type: "warning"
             })
+            return false
         }
-        
+        return true
+    }
+
+    const onSubmit = () => {
+        if (validateEmail(auth.email) && validatePassword(auth.password)) {
+            submit();
+        }
     }
 
     return (
@@ -47,6 +55,7 @@ const AuthFields = ({ auth, setAuth, submit, title, navigation }) => {
                 autoCapitalize="none"
                 autoCompleteType="off"
                 autoCorrect={false}
+                testID="email-field"
             />
 
             <Text>Password</Text>
@@ -60,9 +69,10 @@ const AuthFields = ({ auth, setAuth, submit, title, navigation }) => {
                 autoCapitalize="none"
                 autoCompleteType="off"
                 autoCorrect={false}
+                testID="password-field"
             />
 
-            <TouchableOpacity style={Base.button} onPress={submit}>
+            <TouchableOpacity style={Base.button} onPress={onSubmit} accessibilityLabel={`${title} by pressing this button`}>
                 <Text style={Typography.button}>{title}</Text>
             </TouchableOpacity>
 

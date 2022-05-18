@@ -7,7 +7,7 @@ import productModel from "../models/products";
 const PickList = ({ route, navigation, setProducts }) => {
     const { order } = route.params;
     const [productsList, setProductsList] = useState([])
-    
+    console.log(order);
 
     useEffect(async () => {
         setProductsList(await productModel.getProducts());
@@ -46,7 +46,7 @@ const PickList = ({ route, navigation, setProducts }) => {
             {orderItemsList}
 
             {allInStock
-                ?   <TouchableOpacity style={Base.button} onPress={pick}>
+                ?   <TouchableOpacity accessibilityLabel='Pack order' style={Base.button} onPress={pick}>
                         <Text style={Typography.button}>Pack order</Text>
                     </TouchableOpacity>
                 : <Text style={Typography.header2}>Out of stock!</Text>

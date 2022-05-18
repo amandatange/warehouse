@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Platform, TouchableOpacity, ScrollView, Text, TextInput, View, TextComponent } from "react-native";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from "@react-native-picker/picker";
+import { showMessage } from "react-native-flash-message";
 
 import { Base, Typography, Forms } from "../styles";
 
@@ -83,14 +84,9 @@ const DeliveryForm = ({ navigation, setProducts }) => {
     const [delivery, setDelivery] = useState<Partial<Delivery>>({});
     const [currentProduct, setCurrentProduct] = useState<Partial<Product>>({});
 
-    const [notValid, setNotValid] = useState(false);
-
     const addDelivery = async () => {
-
-        if (delivery.amount) {
-            setNotValid(false)
+        if (delivery.amount && delivery.delivery_date && delivery.product_id) {
             await deliveriesModel.addDelivery(delivery);
-
             const updatedProduct = {
                 ...currentProduct,
                 stock: (currentProduct.stock || 0) + (delivery.amount || 0)
@@ -98,9 +94,12 @@ const DeliveryForm = ({ navigation, setProducts }) => {
             await productModel.updateProduct(updatedProduct);
             navigation.navigate("List", { reload: true })
         } else {
-            setNotValid(true);
+            showMessage({
+                message: "Invalid input",
+                description: "You must choose product, delivery date and amount",
+                type: "warning"
+            })
         }
-        
     }
 
     return (
@@ -124,6 +123,7 @@ const DeliveryForm = ({ navigation, setProducts }) => {
             <DateDropDown
                 delivery={delivery}
                 setDelivery={setDelivery}
+                testID='DateDropDown'
             />
             
             <Text style={{ ...Typography.label }}>
@@ -136,6 +136,7 @@ const DeliveryForm = ({ navigation, setProducts }) => {
                 }}
                 value={delivery?.amount?.toString()}
                 keyboardType="numeric"
+                testID="amount-field"
             />
             
             <Text style={Typography.label}>
@@ -147,11 +148,10 @@ const DeliveryForm = ({ navigation, setProducts }) => {
                     setDelivery({ ...delivery, comment: content})
                 }}
                 value={delivery?.comment}
+                testID="comment-field"
             />
-            
-            {notValid && <Text>Please fill in the amount</Text>}
 
-            <TouchableOpacity style={Base.button} onPress={addDelivery}>
+            <TouchableOpacity accessibilityLabel={`Create new delivery by pressing this button`} style={Base.button} onPress={addDelivery}>
                 <Text style={Typography.button}>
                     Create delivery
                 </Text>
@@ -160,4 +160,4 @@ const DeliveryForm = ({ navigation, setProducts }) => {
     )
 }
 
-export default DeliveryForm
+export default DeliveryForm;
