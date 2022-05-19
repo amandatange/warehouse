@@ -85,19 +85,3 @@ test('testing that authfield login button exists and works', async () => {
     expect(mockSubmit).toHaveBeenCalled();
 
 });
-
-// test('testing that authfield login button exists', async () => {
-//     const title = "Log in"
-//     const { getByA11yLabel } = render(<AuthFields
-//         auth={auth}
-//         setAuth={setAuth}
-//         submit={mockSubmit}
-//         title={title}
-//         navigation={navigation}
-//     />);
-    
-//     const fakeEmail = "epost@fake.se";
-//     fireEvent.changeText("", fakeEmail);
-
-//     expect(auth?.email).toEqual(fakeEmail)
-// });

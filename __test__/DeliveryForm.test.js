@@ -1,5 +1,17 @@
-import { render } from '@testing-library/react-native';
+import { fireEvent, render } from '@testing-library/react-native';
 import DeliveryForm from '../components/DeliveryForm';
+
+let delivery = {};
+const setDelivery = (newDelivery) => {
+    delivery = newDelivery;
+};
+
+const setCurrentProduct = (newDelivery) => {
+    delivery = newDelivery;
+};
+
+const mockSubmit = jest.fn();
+
 
 test('testing that header for deliveryform is New delivery', async () => {
     const { getByText } = render(<DeliveryForm />);
@@ -34,22 +46,19 @@ test('testing that create delivery exists', async () => {
     expect(submitButton).toBeDefined();
 });
 
-// test('testing that authfield login button exists and works', async () => {
-//     const { getByA11yLabel } = render(<DeliveryForm />);
-//     const { getByA11yLabel } = render(<AuthFields
-//         auth={auth}
-//         setAuth={setAuth}
-//         submit={mockSubmit}
-//         title={title}
-//         navigation={navigation}
-//     />);
-    
-//     const a11yLabel = `${title} by pressing this button`
-//     const submitButton = getByA11yLabel(a11yLabel);
-    
-//     expect(submitButton).toBeDefined();
+test('testing that create delivery button works', async () => {
+    const title = "Create new delivery by pressing this button";
+    const { getByA11yLabel } = render(<DeliveryForm 
+        delivery={delivery}
+        setDelivery={setDelivery}
+        setCurrentProduct={setCurrentProduct}
+        addDelivery={mockSubmit}
+    />);
 
-//     fireEvent.press(submitButton);
-//     expect(mockSubmit).toHaveBeenCalled();
+    const a11yLabel = `${title}`
+    const submitButton = getByA11yLabel(a11yLabel);
 
-// });
+    fireEvent.press(submitButton);
+    expect(mockSubmit).toHaveBeenCalled();
+
+});
