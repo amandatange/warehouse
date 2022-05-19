@@ -45,9 +45,7 @@ const App = () => {
 					<Tab.Screen name="Pack">
 						{() => <Pick setProducts={setProducts}/>}
 					</Tab.Screen>
-					<Tab.Screen name="Deliveries">
-						{() => <Deliveries/>}
-					</Tab.Screen>
+					<Tab.Screen name="Deliveries" component={Deliveries} />
 					<Tab.Screen name="Ship" component={Ship} />
 					{isLoggedIn 
 						?   <Tab.Screen name="Invoices">

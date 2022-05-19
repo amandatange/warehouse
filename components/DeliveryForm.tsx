@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { Platform, TouchableOpacity, ScrollView, Text, TextInput, View, TextComponent } from "react-native";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from "@react-native-picker/picker";
-import { showMessage } from "react-native-flash-message";
+
 
 import { Base, Typography, Forms } from "../styles";
 
-import productModel from "../models/products"
+import productModel from "../models/products";
 import deliveriesModel from '../models/deliveries';
 
 import Delivery from "../interfaces/delivery";
@@ -80,27 +80,27 @@ const DateDropDown = (props) => {
 }
 
 
-const DeliveryForm = ({ navigation, setProducts }) => {
-    const [delivery, setDelivery] = useState<Partial<Delivery>>({});
-    const [currentProduct, setCurrentProduct] = useState<Partial<Product>>({});
+const DeliveryForm = ({ navigation, setProducts, delivery, setDelivery, currentProduct, setCurrentProduct, addDelivery }) => {
+    // const [delivery, setDelivery] = useState<Partial<Delivery>>({});
+    // const [currentProduct, setCurrentProduct] = useState<Partial<Product>>({});
 
-    const addDelivery = async () => {
-        if (delivery.amount && delivery.delivery_date && delivery.product_id) {
-            await deliveriesModel.addDelivery(delivery);
-            const updatedProduct = {
-                ...currentProduct,
-                stock: (currentProduct.stock || 0) + (delivery.amount || 0)
-            };
-            await productModel.updateProduct(updatedProduct);
-            navigation.navigate("List", { reload: true })
-        } else {
-            showMessage({
-                message: "Invalid input",
-                description: "You must choose product, delivery date and amount",
-                type: "warning"
-            })
-        }
-    }
+    // const addDelivery = async () => {
+    //     if (delivery.amount && delivery.delivery_date && delivery.product_id) {
+    //         await deliveriesModel.addDelivery(delivery);
+    //         const updatedProduct = {
+    //             ...currentProduct,
+    //             stock: (currentProduct.stock || 0) + (delivery.amount || 0)
+    //         };
+    //         await productModel.updateProduct(updatedProduct);
+    //         navigation.navigate("List", { reload: true })
+    //     } else {
+    //         showMessage({
+    //             message: "Invalid input",
+    //             description: "You must choose product, delivery date and amount",
+    //             type: "warning"
+    //         })
+    //     }
+    // }
 
     return (
         <ScrollView style={{ ...Base.base }}>
@@ -151,7 +151,7 @@ const DeliveryForm = ({ navigation, setProducts }) => {
                 testID="comment-field"
             />
 
-            <TouchableOpacity accessibilityLabel={`Create new delivery by pressing this button`} style={Base.button} onPress={addDelivery}>
+            <TouchableOpacity accessibilityLabel={`Create new delivery by pressing this button`} style={Base.button} onPress={() => addDelivery()}>
                 <Text style={Typography.button}>
                     Create delivery
                 </Text>

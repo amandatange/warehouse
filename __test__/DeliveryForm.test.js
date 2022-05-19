@@ -33,3 +33,23 @@ test('testing that create delivery exists', async () => {
     
     expect(submitButton).toBeDefined();
 });
+
+// test('testing that authfield login button exists and works', async () => {
+//     const { getByA11yLabel } = render(<DeliveryForm />);
+//     const { getByA11yLabel } = render(<AuthFields
+//         auth={auth}
+//         setAuth={setAuth}
+//         submit={mockSubmit}
+//         title={title}
+//         navigation={navigation}
+//     />);
+    
+//     const a11yLabel = `${title} by pressing this button`
+//     const submitButton = getByA11yLabel(a11yLabel);
+    
+//     expect(submitButton).toBeDefined();
+
+//     fireEvent.press(submitButton);
+//     expect(mockSubmit).toHaveBeenCalled();
+
+// });
